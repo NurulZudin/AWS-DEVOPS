@@ -1,5 +1,8 @@
 # Clarusway AWS & DevOps Cohort 7/21 Workshop
 
+This is for tes
+
+
 This private workshop repository contains projects, hands-on training, coding challenges, and class-notes for the Clarusway Students of AWS & DevOps Cohort 7/21.
 
 ## Description
