@@ -1,0 +1,20 @@
+AWS CloudFormation Session
+Using Cloudformation for Creating ALB with ASG  
+4/3/2021
+
+Instructor: Callahan
+
+Session - 2
+
+Session starts at 10am EST
+
+Break until 11am EST
+
+Break until 12pm EST
+
+  
+  References:
+  - https://yaml.org/
+  - https://json.org/
+  - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html
+  - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-reference.html
