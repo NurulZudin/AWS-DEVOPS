@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Resources:
+  MyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0533f2ba8a1995cf9
+      InstanceType: t2.micro
+      KeyName: call.training
+      SecurityGroups:
+        - cfn-demo-sg
+      Tags:
+        - Key: Name
+          Value: Call-First-Cloudformation-Stack-Instance

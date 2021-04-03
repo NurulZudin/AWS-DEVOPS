@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  This template creates an EC2 instance with an SSH connection.
+  
+Resources:
+  CFNInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+
+      ImageId: ami-0533f2ba8a1995cf9
+
+      InstanceType: t2.micro
+
+      KeyName: guile # please put your own key name
+
+      SecurityGroups: 
+        - cfn-sec-group
+
+      Tags:
+        - Key: Name
+          Value: cfn-instance
