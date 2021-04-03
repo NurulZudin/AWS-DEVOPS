@@ -20,7 +20,7 @@ At the end of the this hands-on training, students will be able to;
 
 - Part 4 - Sudo Command
 
-## Part 1 - Common Environment Variables & Accessing Variable
+## Part 1 - Common Environment/Shell Variables & Accessing Variable
 ​
 - Difference between "env" and "printenv" commands.
 ​
@@ -32,7 +32,7 @@ echo $HOME
 env HOME
 ```
 ​
-- Create a shell variable.
+- Understanding the shell variable.
 ​
 ```bash
 CLARUS=way
@@ -42,7 +42,7 @@ set | grep CLARUS
 echo $CLARUS
 ```
 ​
-- Create an environment variable.
+- Understanding the environment variable. Use export command.
 ​
 ```bash
 export WAY=clarus
@@ -55,14 +55,14 @@ env
 export WAY=clarus
 sudo su
 useradd user1
-passwd user1
+passwd user1 # give user1 any password.
 exit
 su user1
 env | grep WAY
 set | grep CLARUS
 ```
 ​
-- Change the environment value.
+- Change the environment variable value.
 ​
 ```bash
 export WAY=linux
@@ -71,7 +71,7 @@ export WAY=script
 env
 ```
 ​
-- Remove the environment variable.
+- Remove the environment variable with unset command.
 ​
 ```bash
 export WAY=clarusway
@@ -87,22 +87,20 @@ env | grep WAY
 ```bash
 printenv PATH
 cd /bin
-ls
-ls c*
+ls ca*    # see the cat command.
 ```
 ​
 - Add a path to PATH variable for running a script.
 ​
 ```bash
 cd
-mkdir test
-cd test
+mkdir test && cd test
 nano test.sh
-echo "hello world"
+# copy and paste the code-echo "hello world"- in test.sh
 chmod +x test.sh
 ./test.sh
-cd
-./test.sh
+cd    # change directory to ec2-user's home directory
+./test.sh    # it doesnt work. 
 ./test/test.sh
 printenv PATH
 cd test
@@ -123,24 +121,24 @@ export CLARUS=env.var
 WAY=shell.var
 cd test
 nano test1.sh
+# copy and paste the code-echo "normally we should see env. variable $CLARUS but probably we can't see the shell variable $WAY "
 chmod +x test1.sh
 ./test1.sh
 ```
 ​
-## Part 3 - Quoting with Variables
+## Part 3 - Quoting with Variables.
 ​
 - Double Quotes.
 ​
 ```bash
 MYVAR=my value
-echo MYVAR
+echo $MYVAR
 MYVAR="my value"
 echo $MYVAR
-MYNAME=timothy
+MYNAME=james
 MYVAR="my name is $MYNAME"
 echo $MYVAR
-​
-MYNAME="timothy"
+MYNAME="james"
 MYVAR="hello $MYNAME"
 echo $MYVAR
 MYVAR="hello \$MYNAME"
@@ -154,7 +152,7 @@ echo '$SHELL'
 echo 'My\$SHELL'
 ```
 ​
-## Part 4 - Sudo Command
+## Part 4 - Sudo Command.
 ​
 - Sudo Command.
 ​

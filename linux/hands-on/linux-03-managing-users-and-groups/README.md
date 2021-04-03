@@ -22,7 +22,7 @@ At the end of the this hands-on training, students will be able to;
 
 ## Part 1 - Basic User Commands
 ​
-### whoami
+- whoami.
 ​
 ```bash
 whoami
@@ -34,22 +34,22 @@ sudo su -
 pwd
 ```
 ​
-### who
+- who.
 ​
 ```bash
 exit
 who
-who
+who # open a new shell and retry who command to see the users who logged in.
 ```
 ​
-### w
+- w.
 ​
 ```bash
 w
 who
 ```
 ​
-### id
+- id.
 ​
 ```bash
 id
@@ -59,7 +59,7 @@ useradd user1
 id user1
 ```
 ​
-### su
+- su.
 ​
 ```bash
 su ec2-user
@@ -71,13 +71,13 @@ sudo su - user1
 pwd
 ```
 ​
-### passwd
+- passwd.
 ​
 ```bash
 exit
 sudo su
 useradd user2
-passwd user2
+passwd user2    # give a password to user2
 su - user2
 passwd
 exit
@@ -86,95 +86,95 @@ su user2
 ​
 ## Part 2 - User management
 ​
-### /etc/passwd
+- /etc/passwd.
 ​
-```txt
+```bash
 exit
 cat /etc/passwd
 tail -3 /etc/passwd
 ```
 ​
-### useradd
+- useradd.
 ​
-```txt
+```bash
 sudo useradd user3
 cd /home
 ls
 cd /etc
 ls login*
 cat login.defs
-sudo nano login.defs
+sudo nano login.defs    # change the CREATE_HOME variable's value to "no"
 sudo useradd user4
 cd /home && ls
 cat /etc/passwd
-sudo useradd -m user5
+sudo useradd -m user5    # force to system to create a home directory for user with -m option.
 cd /home && ls
-sudo useradd -m -d /home/user6home user6
+sudo useradd -m -d /home/user6home user6    # change the user's home directory name with -d option.
 ls
-sudo useradd -m -c "this guy is developer" user7
+sudo useradd -m -c "this guy is developer" user7    # give a descrpition to user with -c option.
 cat /etc/passwd
 cat /etc/passwd | grep user7
 ```
 ​
-### userdel
+- userdel.
 ​
-```txt
+```bash
 cat /etc/passwd
 sudo userdel user5
 cat /etc/passwd
-cd /home
-ls
-sudo userdel -r user1
-cd /home
-ls
+cd /home && ls
+sudo userdel -r user1    # delete user and its home directory with -r option.
+cd /home && ls
 ```
 ​
-### usermod
+- usermod.
 ​
-```txt
+```bash
 cat /etc/passwd
 sudo usermod -c "this guy will be an aws solution architect" user7
 cat /etc/passwd
 sudo usermod --help
-sudo usermod -l Superuser user2
+sudo usermod -l Superuser user2    # change the name of the user2 with -l option.
 cat /etc/passwd
 ```
 ​
 ## Part 3 - User Passwords
 ​
-### passwd-etc/shadow-etc/login.defs.
+- passwd-etc/shadow-etc/login.defs.
 ​
-```txt
+```bash
+  sudo su
+  useradd user8
+  passwd user8
   cd /etc
-  sudo cat shadow
-  cat /etc/login.defs
+  cat shadow
+  cat login.defs
 ```
 ​
 ## Part 4 - Group Management
 ​
-### groups
+- groups.
 ​
-```txt
-cd
+```bash
 groups
 sudo groupadd linux
 sudo groupadd aws
 sudo groupadd python
 cat /etc/group
 groups
-sudo usermod -a -G linux ec2-user
+sudo usermod -a -G linux ec2-user    # append ec2-user in linux group.
 cat /etc/group
 groups
-sudo usermod -G aws ec2-user
+sudo usermod -G aws ec2-user    # this command deletes all groups that ec2-user in except default group of ec2-user and add ec2-user to aws group.
 cat /etc/group
-sudo groupmod -n my-linux linux
+sudo groupmod -n my-linux linux    # change the name of the linux group.
 cat /etc/group
 groups
 cat /etc/group
 sudo groupdel python
 cat /etc/group
-sudo gpasswd -a user7 aws
+sudo gpasswd -a user7 aws    # add a user to a group.
 cat /etc/group
-sudo gpasswd -d user7 aws
+sudo gpasswd -d user7 aws    # delete a user to a group.
 cat /etc/group
 ```
