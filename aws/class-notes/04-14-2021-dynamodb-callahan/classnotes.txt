@@ -1,0 +1,23 @@
+AWS Databases Session
+NoSQL(DynamoDB) Service 
+4/14/2021
+
+Instructor: Callahan
+
+Session - 2
+
+Session starts at 7pm EST
+
+
+
+
+  
+  References:
+  - https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html
+  - https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/sampledata.zip
+  - https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html
+  - https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.html
+  - https://www.youtube.com/watch?v=2FaWOavwygg
+  - https://aws.amazon.com/dynamodb/faqs/
+
+
