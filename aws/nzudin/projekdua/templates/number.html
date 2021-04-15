@@ -7,11 +7,12 @@
         <title>Document</title>
 </head>
 <body>
+        {% if total%}
+        <h2>Roman Number is {{total}}</h2>
+        {%else%}
+        <h2>Since THis is GET request, Romen number hasnt been calculated!!</h2>
+        {%endif%} 
+        
 
-        <h1>Write any number in the box!!</h1>
-        <form action="/total" method="POST">
-        <h3><input type="number" name="value">Number</h3>
-        <button type="submit"> Conver to Roman </button>
-        </form>       
 </body>
 </html>
