@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: for roman-project
+  
+Resources:
+​
+  ROMANSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: romansecurity #required
+      GroupName: RomanSG
+      
+      
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        
+​
+      Tags:
+        - Key: SecurityGroup
+          Value: SecurtyGroup 
+​
+​
+  RomanProject:
+    Type: AWS::EC2::Instance
+    Properties:
+    
+      ImageId: ami-05d72852800cbf29e
+      
+      InstanceType: t2.micro
+    
+      KeyName: Firstkey
+      
+      SecurityGroupIds: 
+        - !Ref ROMANSG
+      
+      
+      UserData: 
+       !Base64 |
+        #! /bin/bash
+​
+        yum update -y
+​
+        yum install python3 -y
+​
+        pip3 install flask
+​
+        wget https://raw.githubusercontent.com/sipahisnm/aws-repo/master/aws-work-area/project.2/roman-project/app.py
+​
+        mkdir templates
+​
+        cd templates
+​
+        wget https://raw.githubusercontent.com/NurulZudin/AWS-DEVOPS/main/aws/projects/Project-001-Roman-Numerals-Converter/templates/index.html
+​
+        wget https://raw.githubusercontent.com/NurulZudin/AWS-DEVOPS/main/aws/projects/Project-001-Roman-Numerals-Converter/templates/result.html
+        
+        python3 app.py
