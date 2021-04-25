@@ -1,0 +1,125 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+      CloudFormation Template for Milliseconds Converter Application. This template creates Python Flask Web Application on Amazon Linux 2 (XXXXXXXXXXXXXXXXX) EC2 Instance and Application Load Balancer with Auto Scaling Group of Amazon Linux 2 EC2 Instances within default VPC allowing http connections on port 80 and SSH connection on port 22. Milliseconds Application is downloaded from Github repository, then installed on Flask.
+Parameters:
+  NzudinVPC:
+    Description: VPC Id of your existing account
+    Type: AWS::EC2::VPC::Id
+  KeyName:
+    Description: Select your key pair from the list
+    Type: AWS::EC2::KeyPair::KeyName
+  NzudinSubnets:
+    Description: List of Subnet Ids in your VPC. Please select at least 2 of them.
+    Type: List<AWS::EC2::Subnet::Id>
+  NzudinInstanceType:
+    Description: Select the instance type for your web server.
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t3.micro
+      - t3a.micro
+      - t2.nano
+      - t3.nano
+
+Mappings:
+  RegionImageMap:
+    us-east-1:
+      AMI: ami-0742b4e673072066f
+    us-east-2:
+      AMI: ami-05d72852800cbf29e
+    us-west-1:
+      AMI: ami-0577b787189839998
+    us-west-2:
+      AMI: ami-0518bb0e75d3619ca
+    eu-west-1:
+      AMI: ami-0ffea00000f287d30
+
+Resources:
+  NzudinSecGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enables SSH and HTTP ports #required
+      SecurityGroupIngress: 
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      VpcId: !Ref NzudinVPC
+
+  
+  NzudinALBTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 25
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 3
+      Port: 80
+      Protocol: HTTP
+      UnhealthyThresholdCount: 3
+      VpcId: !Ref NzudinVPC
+
+
+  ELBofMilliseconds:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Listeners: #required
+        -   InstancePort: '80'
+            LoadBalancerPort: '80'
+            Protocol: 'tcp'
+      LoadBalancerName: MillisecondsLB 
+      SecurityGroups:
+        - !Ref NzudinSecGroup
+      Subnets: !Ref NzudinSubnets
+  NzudinLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        KeyName: !Ref KeyName
+        ImageId: !FindInMap 
+          - RegionImageMap
+          - !Ref AWS::Region
+          - AMI
+        UserData: !Base64 |
+            #!/bin/bash
+            yum update -y
+            yum install -y python3
+            pip3 install flask
+            cd /home/ec2-user
+            FOLDER="https://raw.githubusercontent.com/NurulZudin/AWS-DEVOPS/main/aws/nzudin/Projectiga-Milliseconds-Converter"
+            wget $FOLDER/app.py
+            wget -P templates $FOLDER/templates/index.html
+            wget -P templates $FOLDER/templates/result.html
+            python3 app.py
+        SecurityGroupIds:
+          - !Ref NzudinSecGroup
+        InstanceType: !Ref NzudinInstanceType
+
+
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: MillisecondsAutoScalingGroup
+      DesiredCapacity: '2'
+      HealthCheckGracePeriod: 90
+      HealthCheckType: 'ELB'
+      LaunchTemplate:
+        LaunchTemplateId: !Ref NzudinLaunchTemplate
+        Version: '1'
+      MaxSize: '3' #required
+      MinSize: '1' #required
+      VPCZoneIdentifier: !Ref NzudinSubnets
+
+ 
+
+Outputs:
+  AppURL:
+    Description: URL of Nurul's Milliseconds App
+    Value: !Join 
+      - ''
+      - - 'http://'
+        - !GetAtt ELBofMilliseconds.DNSName
