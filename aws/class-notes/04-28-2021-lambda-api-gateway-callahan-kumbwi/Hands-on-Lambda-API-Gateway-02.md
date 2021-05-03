@@ -12,7 +12,6 @@ At the end of the this hands-on training, students will be able to;
 
 - Use API Gateway to expose lambda function to static website hosted on S3 bucket.
 
-
 ## Outline
 
 - Part 1 - Prep - Creating a static web hosting on S3
@@ -21,14 +20,11 @@ At the end of the this hands-on training, students will be able to;
 
 - Part 3 - Cerate a Lambda Function with API Gateway
 
-
-
 ## Part 1 - Prep - Launching an Instance
 
 STEP 1 : Prep - Creating a static web hosting on S3
 
 ![lab-001 Static Website](https://raw.githubusercontent.com/ForestTechnologiesLtd/devopsplayground11-lambda/master/diagrams/pg11-lab-001.png)
-
 
 - Go to S3 menu using AWS console
 
@@ -60,7 +56,6 @@ PS: Please, do not forget to select "US East (N.Virginia)" as Region
   - Click 'Upload'
 ```
 
-
 - Create subfolder css using S3 web console
   - Goto bucket "clarusway.broadcast"
   - Click Create folder
@@ -88,15 +83,14 @@ PS: Please, do not forget to select "US East (N.Virginia)" as Region
 - Enable Static website hosting
 
 - Properties > Static website hosting
-```
-- Select 'Use this bucket to host a Website'
 
-- Index document: index.html
+  - Select 'Use this bucket to host a Website'
 
-- Error document: error.html
+  - Index document: `index.html`
 
-- Click 'Save'
-```
+  - Error document: `error.html`
+
+  - Click 'Save'
 
 - Open the Endpoint in a web browser.
 http://clarusway.broadcast.s3-website-us-east-1.amazonaws.com
@@ -124,7 +118,6 @@ Click on the button `Get External Content`. Javascript code you edited at the st
 STEP 2 : Create Second S3 Bucket for using CORS
 
 - Create a bucket of `clarusway.cors.broadcast` with following properties,
-
 
 ```text
 Region                      : US East (N.Virginia)
@@ -165,6 +158,7 @@ PS: Please, do not forget to select "US East (N.Virginia)" as Region
 - Accept defaults, click 'Upload'
 
 - Enable Static website hosting
+
 ```text
 Properties > Static website hosting
 Select 'Use this bucket to host a Website'
@@ -218,7 +212,6 @@ NOTE: Replace URL in <AllowedOrigin> tag with your static website link from Part
 
 - Go to browser and refresh the web-page and show the CORS sub-link. 
 
-
 ## Part 3 - Create a Lambda Function with API Gateway
 
 ![lab-003 Static Website with API Gateway and Lambda](https://raw.githubusercontent.com/ForestTechnologiesLtd/devopsplayground11-lambda/master/diagrams/pg11-lab-003.png)
@@ -261,7 +254,6 @@ Description : Function that generates a random number between 0 and 1000
 
 Accept Defaults for other settings
 ```
-
 
 STEP 2: Testing your function - Create test event
 

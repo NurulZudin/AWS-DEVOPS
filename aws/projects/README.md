@@ -10,4 +10,5 @@ List of projects within AWS workshop as follows;
 
 4. - [Project-004 : Phonebook Application (Python Flask) deployed on AWS Application Load Balancer with Auto Scaling and Relational Database Service using AWS Cloudformation](./Project-004-Phonebook-Application/README.md)
 
+4. - [Project-503 : Capstone Project Blog Page App (Django) on AWS Environment](./Project-503-Capstone-Project-Blog-Page-App-(Django)-on-AWS-Environment/README.md)
 
